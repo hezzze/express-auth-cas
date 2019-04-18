@@ -1,0 +1,26 @@
+{
+  "name": "express-auth-cas",
+  "version": "1.0.0",
+  "description": "auth middleware for cas sso",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hezzze/express-auth-cas.git"
+  },
+  "keywords": [
+    "sso",
+    "cas"
+  ],
+  "dependencies": {
+    "xml2js": "^0.4.8"
+  },
+  "author": "Zeyu He",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hezzze/express-auth-cas/issues"
+  },
+  "homepage": "https://github.com/hezzze/express-auth-cas#readme"
+}
