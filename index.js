@@ -397,6 +397,10 @@ CASAuthentication.prototype._handleTicket = function(req, res, next) {
     };
   }
 
+  if (process.env.NODE_ENV === 'development') {
+    requestOptions.rejectUnauthorized = false;
+  }
+
   var request = this.request_client.request(requestOptions, function(response) {
     response.setEncoding('utf8');
     var body = '';
