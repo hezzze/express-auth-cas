@@ -1,9 +1,19 @@
+## CHNAGELOG
+
+v1.1.0
+- BETA: added support for single logout
+- FIX: port problem for cas_url with custom port (most likely for local development)
+
+v1.0.0
+- modifications to support CAS 6.0.x
+
+---
+
 adopted from Kyle Maguire's https://github.com/kylepixel/cas-authentication
 
 supports Apereo CAS 6.0.x https://apereo.github.io/cas/6.0.x/
 
 ---
-#### original documentation
 
 # Express CAS Authentication
 
@@ -18,6 +28,8 @@ It also provides two route endpoint functions:
 
 - `bounce_redirect`: Acts just like `bounce` but once the client is authenticated they will be redirected to the provided _returnTo_ query parameter.
 - `logout`: De-authenticates the client with the Express server and then redirects them to the CAS logout page.
+
+- `handle_single_logout`: middleware to handle POST request from the CAS server for single logout, will only effective when option `single_logout` is set to true
 
 ## Installation
 
@@ -38,7 +50,8 @@ var cas = new CASAuthentication({
     dev_mode_info   : {},
     session_name    : 'cas_user',
     session_info    : 'cas_userinfo',
-    destroy_session : false
+    destroy_session : false,
+    single_logout   : false
 });
 ```
 
@@ -56,6 +69,7 @@ var cas = new CASAuthentication({
 | session_name | _string_ | The name of the session variable that will store the CAS user once they are authenticated. | _"cas_user"_ |
 | session_info | _string_ | The name of the session variable that will store the CAS user information once they are authenticated. If set to false (or something that evaluates as false), the additional information supplied by the CAS will not be forwarded. This will not work with CAS 1.0, as it does not support additional user information. | _false_ |
 | destroy_session | _boolean_ | If true, the logout function will destroy the entire session upon CAS logout. Otherwise, it will only delete the session variable storing the CAS user. | _false_ |
+| single_logout | _boolean_ | (BETA FEATURE): If true, single logout will be enabled, external store needed be configured for express session, (e.g. redis store via `connect-redis`) | _false_ |
 
 ## Usage
 
@@ -102,4 +116,8 @@ app.get( '/authenticate', cas.bounce_redirect );
 // This route will de-authenticate the client with the Express server and then
 // redirect the client to the CAS logout page.
 app.get( '/logout', cas.logout );
+
+// This route will handle the SLO POST request from CAS server and
+// destroy local session
+app.post( '/single_logout', cas.handle_single_logout);
 ```
