@@ -1,6 +1,6 @@
 {
   "name": "express-auth-cas",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "auth middleware for cas sso",
   "main": "index.js",
   "scripts": {
