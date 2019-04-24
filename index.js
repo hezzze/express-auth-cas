@@ -411,7 +411,7 @@ CASAuthentication.prototype._handleTicket = function(req, res, next) {
         } else {
 
           if (this.single_logout) {
-            console.log('storing ticket for SLO in redis, ticket = ', req.query.ticket)
+            console.log('storing local session for SLO, ', req.query.ticket, '(sso ticket) => { sid: ', req.session.id, '(local session id) }')
 
             // for redis session store a prefix "sess:" will be added for the key
             // see: https://github.com/tj/connect-redis
